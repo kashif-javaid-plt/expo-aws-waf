@@ -1,0 +1,11 @@
+framework module WafMobileSdk {
+  umbrella header "WafMobileSdk.h"
+  export *
+
+  module * { export * }
+}
+
+module WafMobileSdk.Swift {
+  header "WafMobileSdk-Swift.h"
+  requires objc
+}

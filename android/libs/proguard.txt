@@ -1,0 +1,297 @@
+
+
+
+-keeppackagenames com.e.d,com.amazonaws.waf.mobilesdk.d,com.amazonaws.waf.mobilesdk.publicmodel,com.amazonaws.waf.mobilesdk.a
+-adaptresourcefilecontents !jni/arm64-v8a/libbb7cbb.so,!jni/armeabi-v7a/libbb7cbb.so,!jni/x86/libbb7cbb.so,!jni/x86_64/libbb7cbb.so,!lib/arm64-v8a/libbb7cbb.so,!lib/armeabi-v7a/libbb7cbb.so,!lib/x86/libbb7cbb.so,!lib/x86_64/libbb7cbb.so,dummyfile
+-dontwarn proguard.annotation.**
+
+
+
+
+-keep class com.amazonaws.waf.mobilesdk.d.SDKError {
+    int valueOf(java.lang.Object);
+    int findFromException(int);
+}
+
+-keep class com.amazonaws.waf.mobilesdk.a.valueOf {
+    <init>(com.amazonaws.waf.mobilesdk.publicmodel.SDKError);
+}
+
+-keep class com.amazonaws.waf.mobilesdk.a.getValue {
+    <init>(java.lang.String);
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.b.getValue {
+    <init>();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.b.getValue {
+    void valueOf();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.b.getValue$getValue {
+    void SDKError();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.b.getValue$findFromException {
+    void getValue();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.b.values {
+    <init>();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.values {
+    java.lang.String SDKError();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.values {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getValue {
+    <init>();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.valueOf {
+    com.amazonaws.waf.mobilesdk.publicmodel.values values();
+    int SDKError();
+    com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue findFromException();
+    java.lang.String valueOf();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.valueOf {
+    <init>();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName {
+    <init>();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue {
+    com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue getValue;    com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue values;    com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue[] values();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$getValue {
+    void SDKError();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$SDKError
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$SDKError {
+    void getValue();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$values
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$values {
+    void SDKError();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$valueOf {
+    void findFromException();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.WAFConfiguration {
+    <init>(com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$SDKError,double,com.amazonaws.waf.mobilesdk.publicmodel.getMetricName$values);
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.WAFConfiguration {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.toString {
+    <init>();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.SDKError {
+    com.amazonaws.waf.mobilesdk.publicmodel.SDKError INVALID_CHALLENGE;    com.amazonaws.waf.mobilesdk.publicmodel.SDKError ERROR_INVOKING_GET_CHALLENGE_ENDPOINT;    com.amazonaws.waf.mobilesdk.publicmodel.SDKError INVALID_VERIFY_CHALLENGE_RESPONSE;    com.amazonaws.waf.mobilesdk.publicmodel.SDKError ERROR_INVOKING_VERIFY_ENDPOINT;}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.SDKError {
+    void values();
+}
+
+-keep class com.amazonaws.waf.mobilesdk.publicmodel.isTokenNullOrEmpty {
+    java.lang.Object valueOf();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.isTokenNullOrEmpty {
+    void SDKError();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.isTokenNullOrEmpty$SDKError {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.publicmodel.getApplicationIntegrationURLObject {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.c.findFromException {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.e.SDKError {
+    <init>();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.e.SDKError {
+    void findFromException();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.e.findFromException {
+    <init>();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.e.findFromException {
+    void findFromException();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.e.WAFToken {
+    void builder();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.token.WAFConfiguration$WAFConfigurationBuilder {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.h.getValue {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.h.getValue$findFromException {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.amazonaws.waf.mobilesdk.h.getValue$valueOf {
+    <init>();
+}
+
+-keepclassmembers,allowshrinking,allowobfuscation class com.amazonaws.waf.mobilesdk.h.findFromException {
+    void valueOf();
+}
+
+-keep class com.e.d.values {
+    byte[][] valueOf(int);
+}
+
+-keep class com.e.d.valueOf {
+    byte[] values;    int[] getValue;    int[] SDKError;    int[] valueOf;    int[] findFromException;    int toString;    int[] isTokenNullOrEmpty;    byte[][] getMetricName;    int[] WAFConfiguration;    byte[] WAFToken;    byte[] getMaxErrorTokenRefreshDelayMSec;    int builder;    int getTokenRefreshDelaySec;    int getApplicationIntegrationURL;    int getApplicationIntegrationURLObject;    int getMaxRetryCount;    int isBackgroundRefreshEnabled;    <init>(java.io.InputStream,int,byte[],byte[][]);
+    <init>(java.io.InputStream,int,byte[],byte[][],byte);
+    int read();
+    int read(byte[]);
+    int read(byte[],int,int);
+    long skip(long);
+    int available();
+    void close();
+    boolean markSupported();
+    void mark(int);
+    void reset();
+    int findFromException();
+    void findFromException(byte[],byte[]);
+    void <clinit>();
+}
+
+-keep class com.e.d.SDKError {
+    void getValue(byte[],byte,long);
+}
+
+-keep class com.e.d.isTokenNullOrEmpty {
+    int values;    <init>();
+}
+
+-keep class com.e.d.WAFToken {
+    int getValue;    int valueOf;    int findFromException;    <init>();
+}
+
+-keep class com.e.d.toString {
+    int values;    int getValue;    int findFromException;    <init>();
+    void valueOf(int[]);
+    int valueOf(int);
+}
+
+-keep class com.e.d.getMetricName {
+    int SDKError;    <init>();
+}
+
+-keep class com.e.d.WAFConfiguration {
+    int valueOf;    int getValue;}
+
+-keep class com.e.d.builder {
+    int getValue;    char findFromException;}
+
+-keep class com.e.d.getApplicationIntegrationURL {
+    int getValue;    int SDKError;}
+
+-keep class com.e.d.getApplicationIntegrationURLObject {
+    int valueOf;    char SDKError;    char getValue;    int values;    int findFromException;    int WAFToken;    int WAFConfiguration;}
+
+-keep class com.e.d.getTokenRefreshDelaySec {
+    int findFromException;    int SDKError;}
+
+-keep class com.e.d.getMaxErrorTokenRefreshDelayMSec {
+    int values;    int findFromException;    char valueOf;    char SDKError;    <init>();
+}
+
+-keep class com.e.d.getDomainName {
+    int valueOf;    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.Gson {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.GsonBuilder {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.JsonElement {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.TypeAdapter {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.internal.Excluder {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class com.google.gson.reflect.TypeToken {
+    <init>();
+}
+
+-keep class org.bouncycastle.crypto.CipherParameters
+
+-keep class org.bouncycastle.crypto.Digest
+
+-keep class org.bouncycastle.crypto.PBEParametersGenerator {
+    void init(byte[],byte[],int);
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class org.bouncycastle.crypto.PBEParametersGenerator {
+    <init>();
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class org.bouncycastle.crypto.digests.GeneralDigest {
+    <init>();
+}
+
+-keep class org.bouncycastle.crypto.digests.SHA256Digest {
+    <init>();
+}
+
+-keep class org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator {
+    <init>(org.bouncycastle.crypto.Digest);
+    org.bouncycastle.crypto.CipherParameters generateDerivedParameters(int);
+}
+
+-keepclassmembers,allowoptimization,allowobfuscation class org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator {
+    <init>();
+}
+
+-keep class org.bouncycastle.crypto.params.KeyParameter {
+    byte[] getKey();
+}

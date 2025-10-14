@@ -2,48 +2,181 @@ package expo.modules.awswaf
 
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import expo.modules.kotlin.Promise
 import java.net.URL
+import android.content.Context
+import android.app.Application
+import java.net.CookieManager
+import java.net.CookieHandler
+import java.net.CookiePolicy
+
+// Import AWS WAF SDK classes
+import com.amazonaws.waf.mobilesdk.token.WAFConfiguration
+import com.amazonaws.waf.mobilesdk.token.WAFTokenProvider
 
 class AWSWafMobileModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+  private var wafTokenProvider: WAFTokenProvider? = null
+  private var isWAFInitialized = false
+  private var setTokenCookieEnabled = true
+
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('AWSWafMobile')` in JavaScript.
     Name("AWSWafMobile")
 
-    // Defines constant property on the module.
     Constant("PI") {
       Math.PI
     }
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    Events("onChange", "onTokenGenerated", "onError")
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") {
       "Hello world! 👋"
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
     AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
       sendEvent("onChange", mapOf(
         "value" to value
       ))
     }
+    
+    // AWS WAF specific functions
+    AsyncFunction("initialize") { config: Map<String, Any>, promise: Promise ->
+      try {
+        val applicationIntegrationUrl = config["applicationIntegrationUrl"] as? String
+        val domainName = config["domainName"] as? String
+        val backgroundRefreshEnabled = config["backgroundRefreshEnabled"] as? Boolean ?: true
+        setTokenCookieEnabled = config["setTokenCookie"] as? Boolean ?: true
+        
+        if (applicationIntegrationUrl == null || domainName == null) {
+          promise.reject("InvalidConfiguration", "Missing required configuration parameters", null)
+          return@AsyncFunction
+        }
+        
+        // Create WAF configuration
+        val url = URL(applicationIntegrationUrl)
+        val wafConfiguration = WAFConfiguration.builder()
+          .applicationIntegrationURL(url)
+          .domainName(domainName)
+          .backgroundRefreshEnabled(backgroundRefreshEnabled)
+          .setTokenCookie(setTokenCookieEnabled)
+          .build()
+        
+        // Initialize CookieManager if setTokenCookie is enabled
+        if (setTokenCookieEnabled) {
+          var cookieManager = CookieHandler.getDefault() as? CookieManager
+          if (cookieManager == null) {
+            cookieManager = CookieManager()
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
+            CookieHandler.setDefault(cookieManager)
+          }
+        }
+        
+        // Get application context
+        val application = appContext.reactContext?.applicationContext as? Application
+        if (application == null) {
+          promise.reject("ApplicationContextError", "Unable to get application context", null)
+          return@AsyncFunction
+        }
+        
+        // Initialize WAF token provider
+        wafTokenProvider = WAFTokenProvider(application, wafConfiguration)
+        
+        // Set up token ready callback
+        wafTokenProvider?.onTokenReady { wafToken, sdkError ->
+          if (wafToken != null) {
+            sendEvent("onTokenGenerated", mapOf("token" to wafToken.value))
+          }
+          if (sdkError != null) {
+            sendEvent("onError", mapOf(
+              "error" to "Token generation error: ${sdkError}",
+              "code" to sdkError.hashCode()
+            ))
+          }
+        }
+        
+        isWAFInitialized = true
+        promise.resolve(null)
+        
+      } catch (e: Exception) {
+        sendEvent("onError", mapOf(
+          "error" to "Failed to initialize WAF SDK: ${e.message}"
+        ))
+        promise.reject("InitializationError", e.message, e)
+      }
+    }
+    
+    AsyncFunction("generateToken") { promise: Promise ->
+      if (!isWAFInitialized || wafTokenProvider == null) {
+        promise.reject("NotInitialized", "WAF SDK not initialized", null)
+        return@AsyncFunction
+      }
+      
+      try {
+        val token = wafTokenProvider?.token
+        if (token != null) {
+          promise.resolve(token.value)
+        } else {
+          promise.reject("TokenGenerationError", "Failed to generate token", null)
+        }
+      } catch (e: Exception) {
+        sendEvent("onError", mapOf(
+          "error" to "Token generation error: ${e.message}"
+        ))
+        promise.reject("TokenGenerationError", e.message, e)
+      }
+    }
+    
+    Function("isInitialized") {
+      isWAFInitialized
+    }
+    
+    Function("getVersion") {
+      "2.0.3"
+    }
+    
+    // Cookie management methods
+    AsyncFunction("setTokenCookie") { enabled: Boolean, promise: Promise ->
+      try {
+        setTokenCookieEnabled = enabled
+        
+        if (enabled) {
+          // Ensure CookieManager is initialized
+          var cookieManager = CookieHandler.getDefault() as? CookieManager
+          if (cookieManager == null) {
+            cookieManager = CookieManager()
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
+            CookieHandler.setDefault(cookieManager)
+          }
+        }
+        
+        promise.resolve(null)
+      } catch (e: Exception) {
+        promise.reject("CookieManagementError", e.message, e)
+      }
+    }
+    
+    AsyncFunction("getTokenCookie") { promise: Promise ->
+      try {
+        if (!setTokenCookieEnabled || wafTokenProvider == null) {
+          promise.resolve(null)
+          return@AsyncFunction
+        }
+        
+        val token = wafTokenProvider?.token
+        if (token != null) {
+          val cookieValue = "aws-waf-token=${token.value}"
+          promise.resolve(cookieValue)
+        } else {
+          promise.resolve(null)
+        }
+      } catch (e: Exception) {
+        promise.reject("CookieRetrievalError", e.message, e)
+      }
+    }
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
     View(AWSWafMobileView::class) {
-      // Defines a setter for the `url` prop.
       Prop("url") { view: AWSWafMobileView, url: URL ->
         view.webView.loadUrl(url.toString())
       }
-      // Defines an event that the view can send to JavaScript.
       Events("onLoad")
     }
   }

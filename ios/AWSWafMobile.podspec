@@ -20,9 +20,23 @@ Pod::Spec.new do |s|
 
   s.dependency 'ExpoModulesCore'
 
+  # Include the WafMobileSdk xcframework
+  s.vendored_frameworks = 'WafMobileSdk.xcframework'
+
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
+    'EXCLUDED_ARCHS[sdk=iphoneos*]' => 'armv7',
+    'EXCLUDED_ARCHS[sdk=appletvsimulator*]' => 'i386',
+    'EXCLUDED_ARCHS[sdk=appletvos*]' => 'armv7'
+  }
+
+  s.user_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
+    'EXCLUDED_ARCHS[sdk=iphoneos*]' => 'armv7',
+    'EXCLUDED_ARCHS[sdk=appletvsimulator*]' => 'i386', 
+    'EXCLUDED_ARCHS[sdk=appletvos*]' => 'armv7'
   }
 
   s.source_files = "**/*.{h,m,mm,swift,hpp,cpp}"
