@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-aws-waf": ["../src/index"],
+      "expo-aws-waf/*": ["../src/*"]
+    }
+  }
+}

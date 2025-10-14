@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["AWSWafMobileModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.awswaf.AWSWafMobileModule"]
+  }
+}
