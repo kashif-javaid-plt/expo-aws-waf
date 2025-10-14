@@ -22,22 +22,12 @@ Pod::Spec.new do |s|
 
   # Include the WafMobileSdk xcframework
   s.vendored_frameworks = 'WafMobileSdk.xcframework'
+  s.preserve_paths = 'WafMobileSdk.xcframework/**/*'
 
-  # Swift/Objective-C compatibility
+  # XCFramework configuration - don't import the XCFramework headers in umbrella header
   s.pod_target_xcconfig = {
-    'DEFINES_MODULE' => 'YES',
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
-    'EXCLUDED_ARCHS[sdk=iphoneos*]' => 'armv7',
-    'EXCLUDED_ARCHS[sdk=appletvsimulator*]' => 'i386',
-    'EXCLUDED_ARCHS[sdk=appletvos*]' => 'armv7'
+    'DEFINES_MODULE' => 'YES'
   }
 
-  s.user_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
-    'EXCLUDED_ARCHS[sdk=iphoneos*]' => 'armv7',
-    'EXCLUDED_ARCHS[sdk=appletvsimulator*]' => 'i386', 
-    'EXCLUDED_ARCHS[sdk=appletvos*]' => 'armv7'
-  }
-
-  s.source_files = "**/*.{h,m,mm,swift,hpp,cpp}"
+  s.source_files = "AWSWafMobileModule.swift", "AWSWafMobileView.swift"
 end

@@ -37,19 +37,21 @@ public class AWSWafMobileModule: Module {
       self.setTokenCookieEnabled = config["setTokenCookie"] as? Bool ?? true
       
       do {
-        let configuration = WAFConfiguration(
+        guard let configuration = WAFConfiguration(
           applicationIntegrationUrl: url,
           domainName: domainName,
           backgroundRefreshEnabled: backgroundRefreshEnabled,
           setTokenCookie: self.setTokenCookieEnabled
-        )
+        ) else {
+          throw Exception(name: "ConfigurationError", description: "Failed to create WAF configuration")
+        }
         
         self.wafTokenProvider = WAFTokenProvider(configuration)
         
         // Set up the token ready callback
         self.wafTokenProvider?.onTokenReady { [weak self] token, error in
           if let token = token {
-            self?.sendEvent("onTokenGenerated", ["token": token])
+            self?.sendEvent("onTokenGenerated", ["token": token.value])
           }
           if let error = error {
             self?.sendEvent("onError", [
@@ -74,7 +76,7 @@ public class AWSWafMobileModule: Module {
       
       let token = wafTokenProvider.getToken()
       if let token = token {
-        return token
+        return token.value
       } else {
         throw Exception(name: "TokenGenerationError", description: "Failed to generate token")
       }
@@ -86,7 +88,7 @@ public class AWSWafMobileModule: Module {
     
     Function("getVersion") {
       // Return a version string - you may need to adjust this based on actual SDK API
-      return "2.1.2"
+      return "2.1.3"
     }
     
     // Cookie management methods
@@ -103,7 +105,7 @@ public class AWSWafMobileModule: Module {
       
       let token = wafTokenProvider.getToken()
       if let token = token {
-        return "aws-waf-token=\(token)"
+        return "aws-waf-token=\(token.value)"
       }
       return nil
     }
