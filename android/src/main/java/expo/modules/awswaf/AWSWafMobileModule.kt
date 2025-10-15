@@ -22,15 +22,7 @@ class AWSWafMobileModule : Module() {
   override fun definition() = ModuleDefinition {
     Name("AWSWafMobile")
 
-    Constant("PI") {
-      Math.PI
-    }
-
     Events("onChange", "onTokenGenerated", "onError")
-
-    Function("hello") {
-      "Hello world! 👋"
-    }
 
     AsyncFunction("setValueAsync") { value: String ->
       sendEvent("onChange", mapOf(

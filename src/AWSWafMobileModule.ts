@@ -3,8 +3,6 @@ import { NativeModule, requireNativeModule } from 'expo';
 import { AWSWafMobileModuleEvents, WAFConfiguration } from './AWSWafMobile.types';
 
 declare class AWSWafMobileModule extends NativeModule<AWSWafMobileModuleEvents> {
-  PI: number;
-  hello(): string;
   setValueAsync(value: string): Promise<void>;
   
   // AWS WAF specific methods

@@ -9,15 +9,7 @@ public class AWSWafMobileModule: Module {
   public func definition() -> ModuleDefinition {
     Name("AWSWafMobile")
 
-    Constant("PI") {
-      Double.pi
-    }
-
     Events("onChange", "onTokenGenerated", "onError")
-
-    Function("hello") {
-      return "Hello world! 👋"
-    }
 
     AsyncFunction("setValueAsync") { (value: String) in
       self.sendEvent("onChange", [
