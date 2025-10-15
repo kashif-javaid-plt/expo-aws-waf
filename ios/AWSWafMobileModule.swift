@@ -86,11 +86,6 @@ public class AWSWafMobileModule: Module {
       return self.isWAFInitialized
     }
     
-    Function("getVersion") {
-      // Return a version string - you may need to adjust this based on actual SDK API
-      return "2.1.3"
-    }
-    
     // Cookie management methods
     AsyncFunction("setTokenCookie") { (enabled: Bool) -> Void in
       self.setTokenCookieEnabled = enabled

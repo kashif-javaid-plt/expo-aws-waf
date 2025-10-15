@@ -129,10 +129,6 @@ class AWSWafMobileModule : Module() {
       isWAFInitialized
     }
     
-    Function("getVersion") {
-      "2.0.3"
-    }
-    
     // Cookie management methods
     AsyncFunction("setTokenCookie") { enabled: Boolean, promise: Promise ->
       try {

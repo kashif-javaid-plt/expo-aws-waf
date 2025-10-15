@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-  compileOnly files('libs/WafMobileSdk.aar')
+  implementation files('libs/WafMobileSdk.aar')
   
   // Required dependencies for AWS WAF Android Mobile SDK
   implementation 'com.google.code.gson:gson:2.8.9'

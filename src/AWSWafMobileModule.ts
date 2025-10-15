@@ -11,7 +11,6 @@ declare class AWSWafMobileModule extends NativeModule<AWSWafMobileModuleEvents> 
   initialize(config: WAFConfiguration): Promise<void>;
   generateToken(): Promise<string>;
   isInitialized(): boolean;
-  getVersion(): string;
   
   // Cookie management methods
   setTokenCookie(enabled: boolean): Promise<void>;

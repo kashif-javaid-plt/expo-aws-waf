@@ -90,7 +90,6 @@ export default function App() {
         
         <Group name="SDK Status">
           <Text>Initialized: {isInitialized ? 'Yes' : 'No'}</Text>
-          <Text>Version: {AWSWafMobile.getVersion()}</Text>
           <Text>Cookie Mode: {cookieEnabled ? 'Enabled' : 'Disabled'}</Text>
         </Group>
 
