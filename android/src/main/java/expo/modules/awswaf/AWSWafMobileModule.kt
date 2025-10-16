@@ -126,15 +126,15 @@ class AWSWafMobileModule : Module() {
       try {
         setTokenCookieEnabled = enabled
         
-        if (enabled) {
-          // Ensure CookieManager is initialized
-          var cookieManager = CookieHandler.getDefault() as? CookieManager
-          if (cookieManager == null) {
-            cookieManager = CookieManager()
-            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
-            CookieHandler.setDefault(cookieManager)
-          }
+      if (enabled) {
+        // Ensure CookieManager is initialized
+        val existingCookieManager = CookieHandler.getDefault() as? CookieManager
+        if (existingCookieManager == null) {
+          val newCookieManager = CookieManager()
+          newCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
+          CookieHandler.setDefault(newCookieManager)
         }
+  }
         
         promise.resolve(null)
       } catch (e: Exception) {
