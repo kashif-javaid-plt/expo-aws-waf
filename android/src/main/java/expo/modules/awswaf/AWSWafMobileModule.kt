@@ -54,11 +54,11 @@ class AWSWafMobileModule : Module() {
         
         // Initialize CookieManager if setTokenCookie is enabled
         if (setTokenCookieEnabled) {
-          var cookieManager = CookieHandler.getDefault() as? CookieManager
+          val cookieManager = CookieHandler.getDefault() as? CookieManager
           if (cookieManager == null) {
-            cookieManager = CookieManager()
-            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
-            CookieHandler.setDefault(cookieManager)
+         val newCookieManager = CookieManager()
+             newCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER)
+             CookieHandler.setDefault(newCookieManager)
           }
         }
         

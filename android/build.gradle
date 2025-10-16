@@ -47,5 +47,5 @@ dependencies {
   
   // Required dependencies for AWS WAF Android Mobile SDK
   implementation 'com.google.code.gson:gson:2.8.9'
-  implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
+  implementation 'org.bouncycastle:bcprov-jdk15to18:1.80'
 }
