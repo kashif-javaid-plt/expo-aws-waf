@@ -53,13 +53,8 @@ android {
 }
 
 dependencies {
-  if (isJitPackBuild) {
-    // For JitPack builds, use compileOnly to avoid the AAR conflict
-    compileOnly files('libs/WafMobileSdk.aar')
-  } else {
-    // For local development, use implementation
-    implementation files('libs/WafMobileSdk.aar')
-  }
+  // AWS WAF Mobile SDK classes (extracted from AAR)
+  implementation files('libs/WafMobileSdk.jar')
   
   // Required dependencies for AWS WAF Android Mobile SDK
   implementation 'com.google.code.gson:gson:2.8.9'
@@ -76,12 +71,6 @@ if (isJitPackBuild) {
           groupId = 'com.github.kashif-javaid-plt'
           artifactId = 'expo-aws-waf'
           version = '1.0.0'
-          
-          // Include the WAF SDK .aar as an additional artifact
-          artifact(file('libs/WafMobileSdk.aar')) {
-            classifier = 'waf-sdk'
-            extension = 'aar'
-          }
         }
       }
     }
